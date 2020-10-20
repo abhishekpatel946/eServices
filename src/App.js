@@ -98,25 +98,38 @@ function App() {
           <form className="app_signin">
             <center>
               <img
-                className=""
+                className="app_singin_img"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQS-v1TwzyHHlfFyUwlZmEKd3sHQmUhSO4kUQ&usqp=CAU"
                 alt=""
               />
             </center>
             <Input
-              placeholder="email"
+              className="app_singin_input_email"
+              placeholder="abhi946@mail.com"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
-              placeholder="password"
+              className="app_singin_input_password"
+              placeholder="******"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" onClick={signIn}>
+            <Button
+              className="app_signin_button_singIn"
+              type="submit"
+              onClick={signIn}
+            >
               Sign In
+            </Button>
+            <Button
+              className="app_signin_button_forgotPassword"
+              type="submit"
+              // onClick={}
+            >
+              Forgot Password
             </Button>
           </form>
         </div>
@@ -128,30 +141,37 @@ function App() {
           <form className="app_signup">
             <center>
               <img
-                className=""
+                className="app_signup_img"
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQS-v1TwzyHHlfFyUwlZmEKd3sHQmUhSO4kUQ&usqp=CAU"
                 alt=""
               />
             </center>
             <Input
-              placeholder="username"
+              className="app_singup_input_username"
+              placeholder="abhi "
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
             <Input
-              placeholder="email"
+              className="app_singup_input_email"
+              placeholder="abhi946@mail.com"
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <Input
-              placeholder="password"
+              className="app_singup_input_password"
+              placeholder="******"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" onClick={signUp}>
+            <Button
+              classNames="app_singup_button_singup"
+              type="submit"
+              onClick={signUp}
+            >
               Sign Up
             </Button>
           </form>
@@ -167,11 +187,26 @@ function App() {
         />
         {/* user signIn | singUp | logout */}
         {user ? (
-          <Button onClick={() => auth.signOut()}>Logout</Button>
+          <Button
+            className="app_header_button_logout"
+            onClick={() => auth.signOut()}
+          >
+            Logout
+          </Button>
         ) : (
           <div className="app_loginContainer">
-            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-            <Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
+            <Button
+              className="app_header_button_singIn"
+              onClick={() => setOpenSignIn(true)}
+            >
+              Sign In
+            </Button>
+            <Button
+              className="app_header_button_signUp"
+              onClick={() => setOpenSignUp(true)}
+            >
+              Sign Up
+            </Button>
           </div>
         )}
       </div>
@@ -186,17 +221,7 @@ function App() {
           )}
         </div>
         <div className="app_bodyRight">
-          <img
-            className="app_header_image"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQS-v1TwzyHHlfFyUwlZmEKd3sHQmUhSO4kUQ&usqp=CAU"
-            alt=""
-          />
-          <h3>
-            eService is the online platform that helps you to xerox your
-            document as per your convenience.
-          </h3>
-          <strong>Pay as you go service</strong>
-          <a href="e-service.web.app">e-service.web.app</a>
+          {/* this is empty section for future */}
         </div>
       </div>
     </div>

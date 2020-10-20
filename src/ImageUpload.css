@@ -1,0 +1,32 @@
+.imageupload {
+  display: grid;
+}
+
+.imageupload_progress {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+}
+
+.imageupload_input {
+  margin-top: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+}
+
+.imageupload_file {
+  margin-top: 10px;
+  font-weight: bold;
+  border: 1px solid rgb(0, 0, 0);
+  padding: 10px;
+  justify-content: center;
+}
+
+.imageupload_button {
+  margin-top: 15px !important;
+  color: rgb(255, 255, 255) !important;
+  font-size: 15px !important;
+  font-weight: bolder !important;
+  background-color: rgb(8, 177, 8) !important;
+}
