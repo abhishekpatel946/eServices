@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { auth } from "./firebase";
 import { Button, Input, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import ImageUpload from "./ImageUpload";
 
 function getModalStyle() {
   const top = 50;
@@ -36,6 +37,33 @@ function App() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubcribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        // user has logged in...
+        console.log(authUser);
+        setUser(authUser);
+
+        if (authUser.displayName) {
+          // dont update username
+        } else {
+          // if we just created someone...
+          return authUser.updateProfile({
+            displayName: username,
+          });
+        }
+      } else {
+        // user has logged out...
+        setUser(null);
+      }
+    });
+
+    return () => {
+      // perform some cleanup actions
+      unsubcribe();
+    };
+  }, [user, username]);
 
   // signUp authentication with firebase
   const signUp = (event) => {
@@ -138,6 +166,38 @@ function App() {
           alt=""
         />
         {/* user signIn | singUp | logout */}
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>
+        ) : (
+          <div className="app_loginContainer">
+            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+            <Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
+          </div>
+        )}
+      </div>
+      {/* body section */}
+      <div className="app_body">
+        <div className="app_bodyLeft">
+          {/* docs upload section */}
+          {user?.displayName ? (
+            <ImageUpload username={user.displayName} />
+          ) : (
+            <h3>Sorry, You need to login upload...</h3>
+          )}
+        </div>
+        <div className="app_bodyRight">
+          <img
+            className="app_header_image"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQS-v1TwzyHHlfFyUwlZmEKd3sHQmUhSO4kUQ&usqp=CAU"
+            alt=""
+          />
+          <h3>
+            eService is the online platform that helps you to xerox your
+            document as per your convenience.
+          </h3>
+          <strong>Pay as you go service</strong>
+          <a href="e-service.web.app">e-service.web.app</a>
+        </div>
       </div>
     </div>
   );
