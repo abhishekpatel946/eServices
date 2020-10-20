@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { Button, Input, Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ImageUpload from "./ImageUpload";
+import Docs from "./Docs";
 
 function getModalStyle() {
   const top = 50;
@@ -37,6 +38,7 @@ function App() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [user, setUser] = useState(null);
+  const [docs, setDocs] = useState([]);
 
   useEffect(() => {
     const unsubcribe = auth.onAuthStateChanged((authUser) => {
@@ -64,6 +66,21 @@ function App() {
       unsubcribe();
     };
   }, [user, username]);
+
+  useEffect(() => {
+    // this is where the docs fetch from firebase at once
+    db.collection("data")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        // every time a new docs is uploaded, this code fires...
+        setDocs(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            doc: doc.data(),
+          }))
+        );
+      });
+  }, []);
 
   // signUp authentication with firebase
   const signUp = (event) => {
@@ -222,6 +239,15 @@ function App() {
         </div>
         <div className="app_bodyRight">
           {/* this is empty section for future */}
+          {docs.map(({ id, doc }) => (
+            <Docs
+              key={id}
+              postId={id}
+              user={user}
+              username={doc.username}
+              imageUrl={doc.imageUrl}
+            />
+          ))}
         </div>
       </div>
     </div>

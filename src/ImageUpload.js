@@ -45,7 +45,6 @@ function ImageUpload({ username }) {
               imageUrl: url,
               username: username,
             });
-
             setProgress(0);
             setMessage("");
             setImage(null);

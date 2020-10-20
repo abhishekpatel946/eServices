@@ -144,6 +144,9 @@
   justify-content: center;
 }
 
+.app_bodyLeft {
+}
+
 .app_bodyRight {
-  margin-left: 10px;
+  margin-left: 20px;
 }
